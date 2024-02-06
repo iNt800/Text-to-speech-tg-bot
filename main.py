@@ -1,9 +1,7 @@
 import torch
-import sounddevice as sd
-import time
 import telebot
 
-sp = None
+sp = 'aidar'
 text = None
 
 def speak(speech, tof, sp):
@@ -12,8 +10,6 @@ def speak(speech, tof, sp):
     model_id = 'ru_v3'
     sample_rate = 48000
     speaker = sp
-    put_accent = True 
-    put_yo = True
     device = torch.device('cpu')
     text = speech
 
@@ -22,12 +18,6 @@ def speak(speech, tof, sp):
                             language=language,
                             speaker=model_id)
     model.to(device)
-
-    audio = model.apply_tts(text=text,
-                                speaker=speaker,
-                                sample_rate=sample_rate,
-                                put_accent=put_accent,
-                                put_yo=put_yo)
     
     if tof == True:
         model.save_wav(text=text,
@@ -41,7 +31,7 @@ def speak(speech, tof, sp):
         print('the second parameter takes the values true or false')
         pass
     
-bot = telebot.TeleBot('?')
+bot = telebot.TeleBot('6688481332:AAElvScZE5NBEj-n1fLiTBJywZGOggg9TIE')
     
 @bot.message_handler(commands=['start'])
 def start(message):
